@@ -1,0 +1,28 @@
+.nav-item{
+    list-style-type: none;
+}
+
+#navbar_logo{
+    margin-right: 3em;
+}
+
+#search_form{
+    margin-bottom: 0;
+}
+
+#content > table :first-child{
+    width: 80%;
+}
+
+.slider_img{
+    width: 20%;
+    float: left;
+}
+
+#sliderBar{
+    overflow: hidden;
+}
+
+.var{
+    display: none;
+}
