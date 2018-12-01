@@ -19,7 +19,7 @@ public class HomeController {
 
     @RequestMapping(value = "/home")
     public String showHome(Model model) {
-        logger.info("homeController");
+        logger.debug("/home");
         model.addAttribute("movieRankingList", new MoviesRankingWorker().getSliderMovieData());
         model.addAttribute("movieRankingListJSON", new MoviesRankingWorker().getSliderMovieDataJSON());
         return "home";

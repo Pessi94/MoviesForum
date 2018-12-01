@@ -2,8 +2,44 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Rejestracja</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/Darkly.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-Empty
+
+<div class="container h-100 row justify-content-center align-items-center ml-auto mr-auto">
+    <form th:action="@{/register}" method='POST' class="form-group">
+        <table>
+            <tr>
+                <td colspan="2"><h1 class="m-4">Rejestracja</h1></td>
+            </tr>
+            <tr>
+                <h4 th:text="${message}" class="text-center"></h4>
+            </tr>
+            <tr>
+                <td>Nazwa użytkownika:</td>
+                <td><input type='text' name='username' class="form-control"></td>
+            </tr>
+            <tr>
+                <td>Hasło:</td>
+                <td><input type='password' name='password' class="form-control"/></td>
+            </tr>
+            <tr>
+                <td>Powtórz hasło:</td>
+                <td><input type='password' name='passwordConfirm' class="form-control"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><h4 th:text="${error}" class="text-danger"></h4></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" name="submit" value="Zarejestruj się" class="btn btn-lg btn-primary btn-block mb-3"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><h4 class="text-center"><a th:href="@{/login}">Masz już konto? Zaloguj się</a></h4></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
 </body>
 </html>

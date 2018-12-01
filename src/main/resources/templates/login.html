@@ -1,28 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Logowanie</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/Darkly.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Zaloguj się!</h1>
-<form name='f' action="login" method='POST'>
-    <table>
-        <tr>
-            <td>User:</td>
-            <td><input type='text' name='username'></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password'/></td>
-        </tr>
-        <tr>
-            <td>E-mail:</td>
-            <td><input type='email' name='email'/></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="submit" value="Zaloguj"/></td>
-        </tr>
-    </table>
-</form>
+
+<div class="container h-100 row h-100 justify-content-center align-items-center ml-auto mr-auto">
+    <form th:action="@{/login}" method='POST' class="form-group">
+        <table>
+            <tr>
+                <td colspan="2"><h1 class="m-4">Zaloguj się!</h1></td>
+            </tr>
+            <tr>
+                <h4 th:text="${message}" class="text-center"></h4>
+            </tr>
+            <tr>
+                <td>Nazwa użytkownika:</td>
+                <td><input type='text' name='username' class="form-control"></td>
+            </tr>
+            <tr>
+                <td>Hasło:</td>
+                <td><input type='password' name='password' class="form-control"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><h4 th:text="${error}" class="text-danger"></h4></td>
+            </tr>
+            <tr>
+                <td><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" name="submit" value="Zaloguj" class="btn btn-lg btn-primary btn-block mb-3"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><h4 class="text-center"><a th:href="@{/register}">Nie masz konta? Zarejestruj się!</a></h4></td>            </tr>
+        </table>
+    </form>
+</div>
+
 </body>
 </html>
