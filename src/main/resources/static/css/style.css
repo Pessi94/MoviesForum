@@ -30,3 +30,7 @@
 html, body{
     height: 100%;
 }
+
+.sectionSelectOptions{
+    font-size: 20px;
+}

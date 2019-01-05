@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/Darkly.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/createThread.js}"></script>
+</head>
+<body onload=(onLoad())>
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-sm sticky-top bg-light mt-1 pl-5">
+        <a class="navbar-brand" href="home" id="navbar_logo">Forum o filmach</a>
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Filmy</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Wszystkie posty</a>
+                    <a class="dropdown-item" href="#">Wybierz gatunek filmów</a>
+                    <a class="dropdown-item" href="#">Nowe posty</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle ml-auto" data-toggle="dropdown" href="#">Seriale</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Wszystkie posty</a>
+                    <a class="dropdown-item" href="#">Wybierz gatunek seriali</a>
+                    <a class="dropdown-item" href="#">Nowe posty</a>
+                </div>
+            </li>
+        </ul>
+
+        <a class="btn btn-outline-success ml-auto mr-sm-3" href="login/">Zaloguj!</a>
+
+        <form action="search/" class="form-inline" id="search_form">
+            <input class="form-control mr-sm-2" id="search_box" name="searchText" placeholder="Szukany ciąg znaków"
+                   type="text">
+            <button class="btn btn-success" type="submit">Szukaj</button>
+        </form>
+    </nav>
+
+    <header class="card-header mt-3 mb-3">
+        <img th:src="@{/img/logo.png}">
+    </header>
+
+    <div id="content">
+        <h1 class="text-info mt-3 text-center"><em>Nowy wątek</em></h1>
+        <form action="#" th:action="@{/createThread}" th:object="${createThread}" method="post" class="m-1">
+            <div class="mt-4 mb-4 ml-2 mr-2 w-100">
+                <p class="text-info d-inline mr-2">Tytuł: </p>
+                <input type="text" th:field="*{topic}" class="bg-info d-inline bg-light text-white w-75"/>
+            </div>
+
+            <textarea cols="" rows="8" th:field="*{text}" class="bg-light w-100 text-white m-2"></textarea>
+
+            <select th:field="*{sectionId}" class="bg-light text-white p-1 m-2 custom-select sectionSelectOptions">
+                <option th:each="section : ${sectionList}" th:value="${section.id}" th:text="${section.name}" class="sectionSelectOptions"></option>
+            </select>
+
+            <button type="submit" class="btn btn-success mt-2">Utwórz nowy wątek</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

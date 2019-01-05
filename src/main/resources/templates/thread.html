@@ -12,10 +12,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
             integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
             crossorigin="anonymous"></script>
-    <script th:src="@{/js/home.js}"></script>
+    <script th:src="@{/js/thread.js}"></script>
 </head>
 <body onload=(onLoad())>
-<span id="movieRankingListJSONSpan" class="var" th:text="${movieRankingListJSON}"></span> <!-- Only as variable for JS -->
 
 <div class="container">
 
@@ -54,32 +53,39 @@
         <img th:src="@{/img/logo.png}">
     </header>
 
-    <div id="sliderBar" onclick="populateSlider()" class="mb-3">
-        <td th:each="movie, movieStat : ${movieRankingList}">
-            <a th:href="${movie.link}" th:if="${movieStat.index < 5}">
-                <img th:title="${movie.name}" th:src="${movie.img}" th:class="slider_img" th:if="${movieStat.index < 5}"/>
-            </a>
-        </td>
-    </div>
-
     <div id="content">
-        <form th:action="@{/createThread}" method="get" class="mt-4">
-            <button class="btn btn-primary">Nowy wątek</button> <!-- TODO JS? -->
-        </form>
+        <div id="threadContent" class="p-4 card mb-2">
+            <div class="card-header">
+                <h4 th:text="${thread.topic}" class="text-info"></h4>
+            </div>
+            <div class="card-body">
+                <p th:text="${thread.text}"></p>
+            </div>
+            <div class="card-footer">
+                <span th:text="'Użytkownik: ' + ${thread.author.username}" class="mr-4"></span>
+                <span th:text="'Data utworzenia: ' + ${#temporals.format(thread.creationDate)}"></span>
+                <form th:action="@{/thread/delete/{id}(id = ${thread.id})}" th:method="post" class="d-inline-block float-right">
+                    <button type="submit" class="btn btn-danger">Usuń</button> <!-- TODO JS? -->
+                </form>
+            </div>
+        </div>
 
-        <table class="sectionsAndThreadsTable table thead-dark table-striped table-hover mt-1 mb-5" th:each="section : ${sectionList}">
-            <tr>
-                <th colspan="2" th:text="${section.name}"></th>
-                <th th:text="'Ilość wątków: ' + ${section.threadList.size()}"></th>
-            </tr>
-            <tr th:each="thread : ${section.threadList}" th:onclick="'handleContentTableClick(' + ${thread.id} + ')'">
-                <td th:text="${thread.topic}"></td>
-                <td th:text="${thread.author.username}"></td>
-                <td th:text="${#temporals.format(thread.creationDate)}"></td>
-            </tr>
-        </table>
+        <div th:each="threadPost : ${thread.threadPostList}" class="card p-4 mt-2">
+            <div class="card-body">
+                <p th:text="${threadPost.post.text}"></p>
+            </div>
+            <div class="card-footer">
+                <span th:text="'Użytkownik: ' + ${threadPost.post.author.username}" class="mr-4"></span>
+                <span th:text="'Data utworzenia: ' + ${#temporals.format(threadPost.post.creationDate)}"></span>
+            </div>
+        </div>
 
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <div id="addPost" class="card card-body mt-4">
+            <form action="#" th:action="@{/addPost/{threadId}(threadId =${thread.id})}" th:object="${addPost}" method="post">
+                <textarea cols="" rows="8" th:field="*{text}" class="bg-light w-100 text-white mt-2" placeholder="Dodaj komentarz"></textarea>
+                <button type="submit" class="btn btn-success float-right w-25">Dodaj komentarz</button>
+            </form>
+        </div>
     </div>
 
     <footer class="card mt-3 mb-3">
